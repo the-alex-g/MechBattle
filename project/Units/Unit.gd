@@ -1,4 +1,4 @@
-class_name Mech
+class_name Unit
 extends KinematicBody
 
 # signals
@@ -54,8 +54,8 @@ func _on_Range_body_exited(body:Node)->void:
 
 
 func _on_DirectionChangeTimer_timeout()->void:
-	#if target != null:
-		#movement_state = MOVEMENT_STATE.CHASE
-		#$DirectionChangeTimer.stop()
-	#else:
+	if target != null:
+		movement_state = MOVEMENT_STATE.CHASE
+		$DirectionChangeTimer.stop()
+	else:
 		rotation.y = randf()*TAU
