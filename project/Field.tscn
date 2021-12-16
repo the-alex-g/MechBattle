@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Field.gd" type="Script" id=1]
+[ext_resource path="res://Unit.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 10, 0.1, 10 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1, 1, 8.87822 )
+
+[node name="Field" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Ground" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CameraArm" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.847076, 0.531473, 0, -0.531473, 0.847076, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="CameraArm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
+current = true
+
+[node name="Bad" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09923, 0, 0 )
+team_id = "NOT"
+
+[node name="Good" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.80375, 0, 0 )
+
+[node name="StaticBody" type="StaticBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23825, 0, 0 )
+
+[node name="CollisionPolygon" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6019, 0.218401, -0.142427 )
+shape = SubResource( 2 )
