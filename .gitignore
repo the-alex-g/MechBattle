@@ -3,6 +3,7 @@ build
 .directory
 project/.import
 project/logs
+kenshape_files
 
 # LMMS Backup files
 *mmpz.bak
