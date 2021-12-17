@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Field.gd" type="Script" id=1]
-[ext_resource path="res://Units/Unit.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Units/Basic/MeleeUnit.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 10, 0.1, 10 )
@@ -23,16 +23,18 @@ transform = Transform( 1, 0, 0, 0, 0.847076, 0.531473, 0, -0.531473, 0.847076, 0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
 current = true
 
-[node name="Bad" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.09923, 0, 0 )
-team_id = "NOT"
-
-[node name="Good" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.80375, 0, 0 )
-
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23825, 0, 0 )
 
 [node name="CollisionPolygon" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6019, 0.218401, -0.142427 )
 shape = SubResource( 2 )
+
+[node name="Good" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.39255 )
+unit_name = "melee"
+
+[node name="Unit2" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.70674 )
+team_id = "BAD"
+unit_name = "melee"
