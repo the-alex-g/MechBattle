@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Field/field_tiles.tres" type="MeshLibrary" id=1]
+[ext_resource path="res://Field/Field.gd" type="Script" id=2]
+
+[node name="Field" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="CameraArm" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.847076, 0.531473, 0, -0.531473, 0.847076, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="CameraArm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
+current = true
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource( 1 )
+cell_size = Vector3( 32, 0.1, 32 )
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
