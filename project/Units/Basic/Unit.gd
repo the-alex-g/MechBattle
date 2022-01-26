@@ -29,6 +29,7 @@ var is_dead := false
 # onready variables
 onready var sight_range := $Range
 onready var wander_timer := $DirectionChangeTimer
+onready var animation_player := $AnimationPlayer
 
 
 func _physics_process(delta:float)->void:
@@ -122,3 +123,5 @@ func hit(damage_taken:int, name_of_unit:String)->void:
 		is_dead = true
 		
 		print(id + " is dead")
+		
+		animation_player.play("Die")

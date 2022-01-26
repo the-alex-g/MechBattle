@@ -9,6 +9,9 @@ extents = Vector3( 4.32212, 4.69782, 2.42841 )
 [node name="Unit" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
+[node name="Body" parent="." index="1"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.55, 0 )
+
 [node name="HitArea" type="Area" parent="Body" index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.8392 )
 

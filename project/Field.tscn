@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Field.gd" type="Script" id=1]
+[ext_resource path="res://Units/CheatCode/ChickenHerder.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Units/Basic/MeleeUnit.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 10, 0.1, 10 )
 
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 1, 1, 8.87822 )
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="ConvexPolygonShape" id=3]
+points = PoolVector3Array( 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, -1, 1, 1, -1, -1, -1, 1, -1, -1, -1, 1, -1, -1, -1 )
 
 [node name="Field" type="Spatial"]
 script = ExtResource( 1 )
@@ -24,30 +27,33 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
 current = true
 
 [node name="StaticBody" type="StaticBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.23825, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.350829, 0, 0.712145 )
 
-[node name="CollisionPolygon" type="CollisionShape" parent="StaticBody"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6019, 0.218401, -0.142427 )
-shape = SubResource( 2 )
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+shape = SubResource( 3 )
 
 [node name="Good" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.9044, 0, 3.39255 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.39255 )
 unit_name = "melee"
 id = "good 1"
 
 [node name="Unit2" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.7278 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.70674 )
 team_id = "BAD"
 unit_name = "melee"
 id = "bad 1"
 
 [node name="Unit4" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8127, 0, -2.70674 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.50258, 0, -2.70674 )
 team_id = "BAD"
 unit_name = "melee"
 id = "bad 2"
 
-[node name="Unit3" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.63845, 0, 16.6339 )
-unit_name = "melee"
-id = "good 2"
+[node name="ChickenHerder" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.98659, 0, -1.61388 )
+unit_name = "chicken_herder"
+id = "chicken herder"

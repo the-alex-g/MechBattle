@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Objects/CheatCodeStuff/ChickenHerderLeg.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Objects/CheatCodeStuff/ChickenHerderBody.obj" type="ArrayMesh" id=2]
@@ -10,6 +10,84 @@ radius = 0.491518
 
 [sub_resource type="SphereShape" id=3]
 radius = 11.0
+
+[sub_resource type="Animation" id=6]
+resource_name = "Die"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.55, 0 ), Vector3( 0, 0.092254, 0 ), Vector3( 0, 0.092254, 0 ), Vector3( 0, -0.71139, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 90, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body:transform")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.55, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body:translation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0.55, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "Walk"
@@ -48,6 +126,33 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0
 mesh = ExtResource( 1 )
 material/0 = null
 
+[node name="Body" type="MeshInstance" parent="Body"]
+transform = Transform( 0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, -0.71139, 0 )
+mesh = ExtResource( 2 )
+material/0 = null
+
+[node name="RightArm" type="MeshInstance" parent="Body/Body"]
+mesh = ExtResource( 4 )
+material/0 = null
+
+[node name="Weapon" type="MeshInstance" parent="Body/Body/RightArm"]
+
+[node name="LeftArm" type="MeshInstance" parent="Body/Body"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+mesh = ExtResource( 4 )
+material/0 = null
+
+[node name="Shield" type="MeshInstance" parent="Body/Body/LeftArm"]
+
+[node name="RightLeg" type="MeshInstance" parent="Body/Body"]
+mesh = ExtResource( 1 )
+material/0 = null
+
+[node name="LeftLeg" type="MeshInstance" parent="Body/Body"]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+mesh = ExtResource( 1 )
+material/0 = null
+
 [node name="Range" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Range"]
@@ -56,6 +161,8 @@ shape = SubResource( 3 )
 [node name="DirectionChangeTimer" type="Timer" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Die = SubResource( 6 )
+anims/RESET = SubResource( 7 )
 anims/Walk = SubResource( 5 )
 
 [connection signal="body_entered" from="Range" to="." method="_on_Range_body_entered"]
