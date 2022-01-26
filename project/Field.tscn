@@ -31,10 +31,23 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6019, 0.218401, -0.142427 )
 shape = SubResource( 2 )
 
 [node name="Good" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.39255 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.9044, 0, 3.39255 )
 unit_name = "melee"
+id = "good 1"
 
 [node name="Unit2" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.70674 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.7278 )
 team_id = "BAD"
 unit_name = "melee"
+id = "bad 1"
+
+[node name="Unit4" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8127, 0, -2.70674 )
+team_id = "BAD"
+unit_name = "melee"
+id = "bad 2"
+
+[node name="Unit3" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.63845, 0, 16.6339 )
+unit_name = "melee"
+id = "good 2"

@@ -59,5 +59,4 @@ shape = SubResource( 3 )
 anims/Walk = SubResource( 5 )
 
 [connection signal="body_entered" from="Range" to="." method="_on_Range_body_entered"]
-[connection signal="body_exited" from="Range" to="." method="_on_Range_body_exited"]
 [connection signal="timeout" from="DirectionChangeTimer" to="." method="_on_DirectionChangeTimer_timeout"]
