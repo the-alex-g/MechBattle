@@ -9,7 +9,7 @@ extends Spatial
 # exported variables
 export var camera_zoom_speed := 0.1
 export var camera_rotate_speed := 0.001 # percentage of full circle
-export var board_size := 2
+export var half_board_size := 1
 export var tile_size := 16
 
 # variables
@@ -19,6 +19,7 @@ var _ignore
 onready var _camera_arm := $CameraArm
 onready var _camera := $CameraArm/Camera
 onready var _gridmap := $GridMap
+onready var _board_size := half_board_size*2
 
 
 func _ready()->void:
@@ -29,11 +30,11 @@ func _ready()->void:
 	
 	# create board
 	
-	for row in board_size:
-		row -= board_size/2
+	for row in _board_size:
+		row -= half_board_size
 		
-		for column in board_size:
-			column -= board_size/2
+		for column in _board_size:
+			column -= half_board_size
 			
 			_gridmap.set_cell_item(column, 0, row, 0)
 
