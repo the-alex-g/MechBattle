@@ -9,6 +9,8 @@ extends Spatial
 # exported variables
 export var camera_zoom_speed := 0.1
 export var camera_rotate_speed := 0.001 # percentage of full circle
+export var board_size := 2
+export var tile_size := 16
 
 # variables
 var _ignore
@@ -16,11 +18,24 @@ var _ignore
 # onready variables
 onready var _camera_arm := $CameraArm
 onready var _camera := $CameraArm/Camera
+onready var _gridmap := $GridMap
 
 
 func _ready()->void:
 	randomize()
 	camera_rotate_speed *= TAU # so it's actually a percent of a full circle
+	
+	_gridmap.cell_size = Vector3(tile_size, 0.1, tile_size)
+	
+	# create board
+	
+	for row in board_size:
+		row -= board_size/2
+		
+		for column in board_size:
+			column -= board_size/2
+			
+			_gridmap.set_cell_item(column, 0, row, 0)
 
 
 func _process(_delta:float)->void:
