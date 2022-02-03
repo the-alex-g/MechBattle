@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Field/field_tiles.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://Field/Field.gd" type="Script" id=2]
+[ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=3]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CubeMesh" id=1]
+material = SubResource( 2 )
+size = Vector3( 2, 0.1, 2 )
 
 [node name="Field" type="Spatial"]
 script = ExtResource( 2 )
@@ -22,3 +30,12 @@ data = {
 __meta__ = {
 "_editor_clip_": 0
 }
+
+[node name="Cursor" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CanvasLayer" parent="." instance=ExtResource( 3 )]
+
+[connection signal="unit_selected" from="CanvasLayer" to="." method="_on_CanvasLayer_unit_selected"]

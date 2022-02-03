@@ -25,6 +25,7 @@ var target:KinematicBody = null
 var _wander_timer_not_started := true
 var _is_first_run := true
 var is_dead := false
+var active := false
 
 # onready variables
 onready var sight_range := $Range
@@ -33,7 +34,7 @@ onready var animation_player := $AnimationPlayer
 
 
 func _physics_process(delta:float)->void:
-	if is_dead or movement_state == MOVEMENT_STATE.STATIONARY:
+	if is_dead or not active or movement_state == MOVEMENT_STATE.STATIONARY:
 		return
 	
 	var velocity = Vector2.ZERO # velocity is a public variable because it needs to be accesable from
@@ -61,6 +62,19 @@ func _physics_process(delta:float)->void:
 		velocity = velocity.rotated(rotation.y)
 	velocity *= delta*speed
 	_ignore = move_and_collide(Vector3(velocity.x, 0, velocity.y))
+
+
+func hit(damage_taken:int, name_of_unit:String)->void:
+	if effective_defense_against.has(name_of_unit.to_upper()):
+		damage_taken /= 2
+	health -= damage_taken
+	if health <= 0:
+		emit_signal("dead")
+		is_dead = true
+		
+		print(id + " is dead")
+		
+		animation_player.play("Die")
 
 
 func _on_Range_body_entered(body:Node)->void:
@@ -114,14 +128,5 @@ func _on_DirectionChangeTimer_timeout()->void:
 		rotation.y = randf()*TAU
 
 
-func hit(damage_taken:int, name_of_unit:String)->void:
-	if effective_defense_against.has(name_of_unit.to_upper()):
-		damage_taken /= 2
-	health -= damage_taken
-	if health <= 0:
-		emit_signal("dead")
-		is_dead = true
-		
-		print(id + " is dead")
-		
-		animation_player.play("Die")
+func _on_game_start()->void:
+	active = true

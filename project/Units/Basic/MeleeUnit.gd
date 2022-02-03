@@ -19,7 +19,7 @@ onready var _cooldown_timer := $AttackDelayTimer
 
 
 func _process(_delta:float)->void:
-	if is_dead: # if dead, do nothing
+	if is_dead or not active: # if dead, do nothing
 		return
 	
 	if can_hit and not is_cooling_down:
@@ -49,7 +49,7 @@ func _on_HitArea_body_exited(body:Node)->void:
 
 
 func _on_AttackDelayTimer_timeout()->void:
-	if is_dead:
+	if is_dead or not active:
 		_cooldown_timer.stop()
 		# if you're dead, stop the timer
 	else:
