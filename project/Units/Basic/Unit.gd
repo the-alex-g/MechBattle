@@ -22,7 +22,7 @@ export var health := 10
 var _ignore
 var movement_state = MOVEMENT_STATE.WANDER
 var target:KinematicBody = null
-var __wander_timer_not_started := true
+var _wander_timer_not_started := true
 var _is_first_run := true
 var is_dead := false
 var active := false
@@ -37,8 +37,7 @@ func _physics_process(delta:float)->void:
 	if is_dead or not active or movement_state == MOVEMENT_STATE.STATIONARY:
 		return
 	
-	var velocity = Vector2.ZERO # velocity is a public variable because it needs to be accesable from
-	# classes that inherit this one.
+	var velocity = Vector2.ZERO
 	
 	if movement_state == MOVEMENT_STATE.CHASE and target != null:
 		
@@ -51,12 +50,12 @@ func _physics_process(delta:float)->void:
 		velocity = Vector2(position_difference.x, position_difference.z)
 		
 	elif movement_state == MOVEMENT_STATE.WANDER:
-		if __wander_timer_not_started:
+		if _wander_timer_not_started:
 			
 			print(id + " start wandering")
 			
 			_wander_timer.start()
-			__wander_timer_not_started = false
+			_wander_timer_not_started = false
 		
 		velocity = Vector2.LEFT
 		velocity = velocity.rotated(rotation.y)
@@ -85,6 +84,10 @@ func _on_Range_body_entered(body:Node)->void:
 				print(id + " target aquired: " + body.id)
 				target = body
 				_ignore = body.connect("dead", self, "_on_target_dead")
+				
+				movement_state = MOVEMENT_STATE.CHASE
+				_wander_timer.stop()
+				_wander_timer_not_started = true
 
 
 func _on_target_dead()->void:
@@ -120,12 +123,7 @@ func _on_target_dead()->void:
 
 
 func _on_DirectionChangeTimer_timeout()->void:
-	if target != null:
-		movement_state = MOVEMENT_STATE.CHASE
-		_wander_timer.stop()
-		__wander_timer_not_started = true
-	else:
-		rotation.y = randf()*TAU
+	rotation.y = randf()*TAU
 
 
 func _on_game_start()->void:
