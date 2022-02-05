@@ -7,6 +7,7 @@
 
 [sub_resource type="CylinderShape" id=1]
 radius = 0.491518
+height = 0.820792
 
 [sub_resource type="SphereShape" id=3]
 radius = 11.0
@@ -96,7 +97,7 @@ resource_name = "Walk"
 script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06075, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.894338, 0 )
 shape = SubResource( 1 )
 
 [node name="Body" type="MeshInstance" parent="."]
@@ -105,55 +106,64 @@ mesh = ExtResource( 2 )
 material/0 = null
 
 [node name="RightArm" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 mesh = ExtResource( 4 )
 material/0 = null
 
 [node name="Weapon" type="MeshInstance" parent="Body/RightArm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
 [node name="LeftArm" type="MeshInstance" parent="Body"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0 )
 mesh = ExtResource( 4 )
 material/0 = null
 
 [node name="Shield" type="MeshInstance" parent="Body/LeftArm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
 [node name="RightLeg" type="MeshInstance" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="LeftLeg" type="MeshInstance" parent="Body"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0 )
 mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="Body" type="MeshInstance" parent="Body"]
-transform = Transform( 0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, -0.71139, 0 )
+transform = Transform( 0.1, 0, 0, 0, -4.37114e-09, -0.1, 0, 0.1, -4.37114e-09, 0, 1, 0 )
 mesh = ExtResource( 2 )
 material/0 = null
 
 [node name="RightArm" type="MeshInstance" parent="Body/Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 mesh = ExtResource( 4 )
 material/0 = null
 
 [node name="Weapon" type="MeshInstance" parent="Body/Body/RightArm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
 [node name="LeftArm" type="MeshInstance" parent="Body/Body"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0 )
 mesh = ExtResource( 4 )
 material/0 = null
 
 [node name="Shield" type="MeshInstance" parent="Body/Body/LeftArm"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 
 [node name="RightLeg" type="MeshInstance" parent="Body/Body"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="LeftLeg" type="MeshInstance" parent="Body/Body"]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0 )
 mesh = ExtResource( 1 )
 material/0 = null
 
 [node name="Range" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.555037, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Range"]
 shape = SubResource( 3 )

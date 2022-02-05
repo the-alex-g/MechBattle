@@ -73,10 +73,10 @@ func _process(delta:float)->void:
 
 func _create_unit()->void:
 	var unit:Unit = load(_selected_unit_path).instance()
-	unit.translation = _cursor.translation
 	add_child(unit)
+	unit.translation = Vector3(_cursor.translation.x, 0, _cursor.translation.z)
 	# warning-ignore:return_value_discarded
-	connect("start_game", unit, "_on_game_start")
+	connect("start_game", unit, "_on_game_start", [], CONNECT_ONESHOT)
 
 
 func _on_CanvasLayer_unit_selected(unit_path:String)->void:
@@ -85,4 +85,6 @@ func _on_CanvasLayer_unit_selected(unit_path:String)->void:
 
 func _on_CanvasLayer_start_game()->void:
 	# this signal is connected to all the units
+	_cursor.translation = Vector3(0,-10,0)
 	emit_signal("start_game")
+	_game_state = GameState.COMBAT
