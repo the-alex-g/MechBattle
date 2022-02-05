@@ -38,4 +38,5 @@ material/0 = null
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 3 )]
 
+[connection signal="start_game" from="CanvasLayer" to="." method="_on_CanvasLayer_start_game"]
 [connection signal="unit_selected" from="CanvasLayer" to="." method="_on_CanvasLayer_unit_selected"]

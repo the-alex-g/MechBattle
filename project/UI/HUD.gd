@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal unit_selected(unit_path)
+signal start_game
 
 const _GOOD_UNIT_NAMES := [
 	"Melee Unit",
@@ -54,3 +55,7 @@ func _on_UnitButton_pressed(unit_name:String)->void:
 	var unit_path = _UNIT_PATHS[unit_name] as String
 	emit_signal("unit_selected", unit_path)
 
+
+
+func _on_StartButton_pressed()->void:
+	emit_signal("start_game")

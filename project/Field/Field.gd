@@ -81,3 +81,8 @@ func _create_unit()->void:
 
 func _on_CanvasLayer_unit_selected(unit_path:String)->void:
 	_selected_unit_path = unit_path
+
+
+func _on_CanvasLayer_start_game()->void:
+	# this signal is connected to all the units
+	emit_signal("start_game")
