@@ -22,15 +22,15 @@ export var health := 10
 var _ignore
 var movement_state = MOVEMENT_STATE.WANDER
 var target:KinematicBody = null
-var _wander_timer_not_started := true
+var __wander_timer_not_started := true
 var _is_first_run := true
 var is_dead := false
 var active := false
 
 # onready variables
-onready var sight_range := $Range
-onready var wander_timer := $DirectionChangeTimer
-onready var animation_player := $AnimationPlayer
+onready var _sight_range = $Range as Area
+onready var _wander_timer = $DirectionChangeTimer as Timer
+onready var _animation_player = $AnimationPlayer as AnimationPlayer
 
 
 func _physics_process(delta:float)->void:
@@ -51,12 +51,12 @@ func _physics_process(delta:float)->void:
 		velocity = Vector2(position_difference.x, position_difference.z)
 		
 	elif movement_state == MOVEMENT_STATE.WANDER:
-		if _wander_timer_not_started:
+		if __wander_timer_not_started:
 			
 			print(id + " start wandering")
 			
-			wander_timer.start()
-			_wander_timer_not_started = false
+			_wander_timer.start()
+			__wander_timer_not_started = false
 		
 		velocity = Vector2.LEFT
 		velocity = velocity.rotated(rotation.y)
@@ -74,7 +74,7 @@ func hit(damage_taken:int, name_of_unit:String)->void:
 		
 		print(id + " is dead")
 		
-		animation_player.play("Die")
+		_animation_player.play("Die")
 
 
 func _on_Range_body_entered(body:Node)->void:
@@ -92,7 +92,7 @@ func _on_target_dead()->void:
 	
 	target.disconnect("dead", self, "_on_target_dead")
 	
-	var overlapping_bodies:Array = sight_range.get_overlapping_bodies()
+	var overlapping_bodies:Array = _sight_range.get_overlapping_bodies()
 	
 	if overlapping_bodies.size() > 0:
 		var potential_targets := []
@@ -122,8 +122,8 @@ func _on_target_dead()->void:
 func _on_DirectionChangeTimer_timeout()->void:
 	if target != null:
 		movement_state = MOVEMENT_STATE.CHASE
-		wander_timer.stop()
-		_wander_timer_not_started = true
+		_wander_timer.stop()
+		__wander_timer_not_started = true
 	else:
 		rotation.y = randf()*TAU
 

@@ -21,10 +21,10 @@ var _game_state = GameState.PLACEMENT
 var _selected_unit_path := ""
 
 # onready variables
-onready var _camera_arm := $CameraArm
-onready var _camera := $CameraArm/Camera
-onready var _gridmap := $GridMap
-onready var _cursor := $Cursor
+onready var _camera_arm = $CameraArm as Position3D
+onready var _camera = $CameraArm/Camera as Camera
+onready var _gridmap = $GridMap as GridMap
+onready var _cursor = $Cursor as MeshInstance
 onready var _board_size := half_board_size*2
 
 

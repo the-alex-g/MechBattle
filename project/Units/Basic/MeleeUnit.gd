@@ -15,7 +15,7 @@ var can_hit := false
 var is_cooling_down := false
 
 # onready variables
-onready var _cooldown_timer := $AttackDelayTimer
+onready var _cooldown_timer = $AttackDelayTimer as Timer
 
 
 func _process(_delta:float)->void:
