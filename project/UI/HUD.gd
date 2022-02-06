@@ -25,6 +25,7 @@ export var button_height := 24.0
 var _unit_set = UnitSet.GOOD
 
 onready var _tabs = $TabContainer as TabContainer
+onready var _animation_player = $AnimationPlayer as AnimationPlayer
 
 func _ready()->void:
 	var buttons_created := 0
@@ -63,4 +64,5 @@ func _on_UnitButton_pressed(unit_name:String, button_id:int)->void:
 
 
 func _on_StartButton_pressed()->void:
+	_animation_player.play("hide")
 	emit_signal("start_game")
