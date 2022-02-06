@@ -24,7 +24,7 @@ var _selected_unit_path := ""
 onready var _camera_arm = $CameraArm as Position3D
 onready var _camera = $CameraArm/Camera as Camera
 onready var _gridmap = $GridMap as GridMap
-onready var _cursor = $Cursor as MeshInstance
+onready var _cursor = $Cursor as Area
 onready var _board_size := half_board_size*2
 
 
@@ -69,6 +69,14 @@ func _process(delta:float)->void:
 		
 		if Input.is_action_just_pressed("place_unit") and _selected_unit_path != "":
 			_create_unit()
+		
+		if Input.is_action_just_pressed("remove_unit"):
+			var overlapping_bodies = _cursor.get_overlapping_bodies() as Array
+			for body in overlapping_bodies:
+				body = body as PhysicsBody
+				if body.is_in_group("UNIT"):
+					disconnect("start_game", body, "_on_game_start")
+					body.queue_free()
 
 
 func _create_unit()->void:

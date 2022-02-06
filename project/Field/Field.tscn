@@ -1,14 +1,17 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Field/field_tiles.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://Field/Field.gd" type="Script" id=2]
 [ext_resource path="res://UI/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Units/Basic/Unit.tscn" type="PackedScene" id=4]
 
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 0.5957, 1 )
+
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 1, 0, 0, 1 )
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="CubeMesh" id=3]
 material = SubResource( 2 )
 size = Vector3( 2, 0.1, 2 )
 
@@ -32,9 +35,15 @@ __meta__ = {
 "_editor_clip_": 0
 }
 
-[node name="Cursor" type="MeshInstance" parent="."]
+[node name="Cursor" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0 )
-mesh = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Cursor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.562913, 0 )
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cursor"]
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="CanvasLayer" parent="." instance=ExtResource( 3 )]
