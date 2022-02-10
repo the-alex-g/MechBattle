@@ -19,7 +19,6 @@ export var speed := 1
 export var health := 10
 
 # variables
-var _ignore
 var movement_state = MOVEMENT_STATE.WANDER
 var target:KinematicBody = null
 var _wander_timer_not_started := true
@@ -60,10 +59,13 @@ func _physics_process(delta:float)->void:
 		velocity = Vector2.LEFT
 		velocity = velocity.rotated(rotation.y)
 	velocity *= delta*speed
-	_ignore = move_and_collide(Vector3(velocity.x, 0, velocity.y))
+	# warning-ignore:return_value_discarded
+	move_and_collide(Vector3(velocity.x, 0, velocity.y))
 
 
 func hit(damage_taken:int, name_of_unit:String)->void:
+	if is_dead:
+		return
 	if effective_defense_against.has(name_of_unit.to_upper()):
 		damage_taken /= 2
 	health -= damage_taken
@@ -77,13 +79,16 @@ func hit(damage_taken:int, name_of_unit:String)->void:
 
 
 func _on_Range_body_entered(body:Node)->void:
-	if body.is_in_group("UNIT"):
+	if is_dead:
+		return
+	if body.is_in_group("UNIT"): # if body is unit
 		if body.team_id != team_id: # if the target is on a different team
 			
-			if target == null: # if you don't already have a target
+			if target == null and not body.is_dead: # if you don't already have a target and your new target is not dead
 				print(id + " target aquired: " + body.id)
 				target = body
-				_ignore = body.connect("dead", self, "_on_target_dead")
+				# warning-ignore:return_value_discarded
+				body.connect("dead", self, "_on_target_dead", [], CONNECT_ONESHOT)
 				
 				movement_state = MOVEMENT_STATE.CHASE
 				_wander_timer.stop()
@@ -91,9 +96,10 @@ func _on_Range_body_entered(body:Node)->void:
 
 
 func _on_target_dead()->void:
-	print(id + " target defeated: " + target.id)
+	if is_dead:
+		return
 	
-	target.disconnect("dead", self, "_on_target_dead")
+	print(id + " target defeated: " + target.id)
 	
 	var overlapping_bodies:Array = _sight_range.get_overlapping_bodies()
 	
@@ -102,14 +108,14 @@ func _on_target_dead()->void:
 		
 		for body in overlapping_bodies:
 			if body.is_in_group("UNIT"):
-				if body.team_id != team_id and not body.is_dead:
+				if body.team_id != team_id and body != target:
 					potential_targets.append(body)
 		
 		if potential_targets.size() > 0:
 			var new_target_index = randi() % potential_targets.size()
 			target = potential_targets[new_target_index]
-			_ignore = target.connect("dead", self, "_on_target_dead")
-			print(_ignore)
+			# warning-ignore:return_value_discarded
+			target.connect("dead", self, "_on_target_dead")
 		
 			print(id + " new target aquired: " + target.id)
 	
@@ -123,6 +129,8 @@ func _on_target_dead()->void:
 
 
 func _on_DirectionChangeTimer_timeout()->void:
+	if is_dead:
+		return
 	rotation.y = randf()*TAU
 
 

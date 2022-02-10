@@ -19,7 +19,7 @@ size = Vector3( 2, 0.1, 2 )
 script = ExtResource( 2 )
 
 [node name="CameraArm" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.847076, 0.531473, 0, -0.531473, 0.847076, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 
 [node name="Camera" type="Camera" parent="CameraArm"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
