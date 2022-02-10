@@ -22,8 +22,11 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 
 [node name="Camera" type="Camera" parent="CameraArm"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
+transform = Transform( 1, 0, 0, 0, 0.999999, 1.06581e-14, 0, -1.06581e-14, 0.999999, 0, 0, 10 )
+projection = 1
 current = true
+fov = 80.0
+size = 50.0
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource( 1 )
@@ -49,7 +52,6 @@ material/0 = null
 [node name="CanvasLayer" parent="." instance=ExtResource( 3 )]
 
 [node name="Unit" parent="." instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.12634 )
 team_id = "BAD"
 id = "starter"
 

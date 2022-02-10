@@ -7,9 +7,13 @@ signal start_game
 enum GameState {COMBAT, PLACEMENT}
 
 # constants
-const CURSOR_SPEED := 2.0
+const CURSOR_SPEED := 10.0
 const CAMERA_ROTATE_SPEED := 0.5
 const CAMERA_ZOOM_SPEED := 2.0
+const DEFAULT_NEAR_CLIP := 0.05
+const DEFAULT_FAR_CLIP := 100.0
+const PERSPECTIVE_ANGLE := 80.0
+const ORTHO_SIZE := 50.0
 
 # exported variables
 export var half_board_size := 1
@@ -33,8 +37,11 @@ func _ready()->void:
 	
 	_gridmap.cell_size = Vector3(tile_size, 0.1, tile_size)
 	
-	# create board
+	# setup camera
+	_camera_arm.rotation.x = -TAU/4
+	_camera.set_orthogonal(ORTHO_SIZE, DEFAULT_NEAR_CLIP, DEFAULT_FAR_CLIP)
 	
+	# create board
 	for row in _board_size:
 		row -= half_board_size
 		
@@ -67,6 +74,9 @@ func _process(delta:float)->void:
 		cursor_movement = cursor_movement.normalized() * delta * CURSOR_SPEED
 		_cursor.translation += cursor_movement
 		
+		#zoom camera
+		_camera.size += Input.get_axis("zoom_in", "zoom_out") * CAMERA_ZOOM_SPEED
+		
 		if Input.is_action_just_pressed("place_unit") and _selected_unit_path != "":
 			_create_unit()
 		
@@ -93,6 +103,10 @@ func _on_CanvasLayer_unit_selected(unit_path:String)->void:
 
 
 func _on_CanvasLayer_start_game()->void:
+	# setup camera
+	_camera_arm.rotation.x = -TAU/8
+	_camera.set_perspective(PERSPECTIVE_ANGLE, DEFAULT_NEAR_CLIP, DEFAULT_FAR_CLIP)
+	
 	# this signal is connected to all the units
 	_cursor.translation = Vector3(0,-10,0)
 	emit_signal("start_game")
